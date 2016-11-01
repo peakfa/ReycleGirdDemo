@@ -77,7 +77,7 @@ public class MainActivity extends Activity implements MyItemClickListener,MyItem
 	}
 
 	/**
-	 * Item click
+	 * Item click .........................
 	 */
 	@Override
 	public void onItemClick(View view, int postion) {
