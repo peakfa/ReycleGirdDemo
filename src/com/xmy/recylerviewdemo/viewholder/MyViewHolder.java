@@ -29,7 +29,7 @@ public class MyViewHolder extends ViewHolder implements OnClickListener,OnLongCl
 	}
 
 	/**
-	 * µã»÷¼àÌý
+	 * ÂµÃ£Â»Ã·Â¼Ã ÃŒÃ½
 	 */
 	@Override
 	public void onClick(View v) {
@@ -39,7 +39,7 @@ public class MyViewHolder extends ViewHolder implements OnClickListener,OnLongCl
 	}
 
 	/**
-	 * ³¤°´¼àÌý
+	 * ç‚¹å‡»
 	 */
 	@Override
 	public boolean onLongClick(View arg0) {
