@@ -1,0 +1,63 @@
+package com.server.service;
+
+import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.graphics.PixelFormat;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageView;
+
+public class StatusBar {
+	private ComService mComService;
+	private WindowManager wm;
+	private int screenWith;
+	private int screenHeight;
+	private View viewContainer, wifi_status, wifi_hot, net_status, gps;
+
+	StatusBar(ComService comService) {
+		mComService = comService;
+		screenWith = mComService.getResources().getDisplayMetrics().widthPixels;
+		screenHeight = mComService.getResources().getDisplayMetrics().heightPixels;
+		wm = (WindowManager) mComService.getApplicationContext()
+				.getSystemService(Context.WINDOW_SERVICE);
+		LayoutInflater inflater = LayoutInflater.from(mComService);
+		viewContainer = inflater.inflate(R.layout.status_bar, null);
+		wm.addView(
+				viewContainer,
+				CreateFloatingWindows(0, 0,
+						WindowManager.LayoutParams.MATCH_PARENT, 30, false));
+		initView();
+
+	}
+
+	private void initView() {
+
+		wifi_status = viewContainer.findViewById(R.id.imageView_wifi);
+		wifi_status.setVisibility(View.VISIBLE);
+		wifi_hot = viewContainer.findViewById(R.id.wifi_hot);
+		net_status = viewContainer.findViewById(R.id.net_status);
+		gps = viewContainer.findViewById(R.id.gps);
+
+	}
+
+	public WindowManager.LayoutParams CreateFloatingWindows(int x, int y,
+			int w, int h, Boolean touchable) {
+		WindowManager.LayoutParams wmParams = new WindowManager.LayoutParams();
+		wmParams.type = WindowManager.LayoutParams.TYPE_PRIORITY_PHONE;
+		if (touchable == false)
+			wmParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+					| WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+		wmParams.format = PixelFormat.RGBA_8888;
+		wmParams.gravity = Gravity.RIGHT | Gravity.TOP;
+		wmParams.x = x;
+		wmParams.y = y;
+		wmParams.width = w;
+		wmParams.height = h;
+		wmParams.windowAnimations = android.R.style.Animation_Dialog;
+		wmParams.screenOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+		return wmParams;
+	}
+
+}
